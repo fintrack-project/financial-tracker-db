@@ -1,0 +1,2 @@
+ALTER TABLE holdings
+DROP CONSTRAINT holdings_account_id_asset_name_key;
