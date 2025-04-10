@@ -9,6 +9,8 @@ services:
       POSTGRES_DB: financial_tracker
     ports:
       - "5432:5432"
+    networks:
+      - fintrack-network
     volumes:
       - db_data:/var/lib/postgresql/data
 volumes:
