@@ -9,7 +9,6 @@ ALTER TABLE users ADD COLUMN last_payment_date timestamp; -- Last payment date
 ALTER TABLE users ADD COLUMN next_billing_date timestamp; -- Next billing date
 ALTER TABLE users ADD COLUMN payment_status varchar(50); -- Payment status (e.g., paid, pending)
 ALTER TABLE users ADD COLUMN timezone varchar(50); -- Timezone
-ALTER TABLE users ADD COLUMN notification_preferences jsonb; -- Notification preferences
 ALTER TABLE users ADD COLUMN two_factor_enabled boolean DEFAULT false; -- Two-factor authentication enabled
 ALTER TABLE users ADD COLUMN last_login timestamp; -- Last login time
 ALTER TABLE users ADD COLUMN failed_login_attempts integer DEFAULT 0; -- Failed login attempts
@@ -18,4 +17,4 @@ ALTER TABLE users ADD COLUMN signup_date timestamp DEFAULT CURRENT_TIMESTAMP; --
 ALTER TABLE users ADD COLUMN last_activity_date timestamp; -- Last activity date
 ALTER TABLE users ADD COLUMN storage_limit integer DEFAULT 0; -- Storage limit (e.g., in MB)
 ALTER TABLE users ADD COLUMN api_usage_limit integer DEFAULT 0; -- API usage limit
-ALTER TABLE users ADD COLUMN feature_flags jsonb; -- Feature flags for enabling/disabling features
+ALTER TABLE users ADD COLUMN email_verified boolean DEFAULT false; -- Email verified status
