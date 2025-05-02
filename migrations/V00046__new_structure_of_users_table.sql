@@ -19,3 +19,4 @@ ALTER TABLE users ADD COLUMN last_activity_date timestamp; -- Last activity date
 ALTER TABLE users ADD COLUMN storage_limit integer DEFAULT 0; -- Storage limit (e.g., in MB)
 ALTER TABLE users ADD COLUMN api_usage_limit integer DEFAULT 0; -- API usage limit
 ALTER TABLE users ADD COLUMN feature_flags jsonb; -- Feature flags for enabling/disabling features
+ALTER TABLE users ADD COLUMN email_verified boolean DEFAULT false; -- Email verified status
