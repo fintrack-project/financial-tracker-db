@@ -10,6 +10,7 @@ ALTER TABLE users ADD COLUMN next_billing_date timestamp; -- Next billing date
 ALTER TABLE users ADD COLUMN payment_status varchar(50); -- Payment status (e.g., paid, pending)
 ALTER TABLE users ADD COLUMN timezone varchar(50); -- Timezone
 ALTER TABLE users ADD COLUMN two_factor_enabled boolean DEFAULT false; -- Two-factor authentication enabled
+ALTER TABLE users ADD COLUMN two_factor_secret varchar(50); -- Two-factor authentication secret
 ALTER TABLE users ADD COLUMN last_login timestamp; -- Last login time
 ALTER TABLE users ADD COLUMN failed_login_attempts integer DEFAULT 0; -- Failed login attempts
 ALTER TABLE users ADD COLUMN account_locked boolean DEFAULT false; -- Account locked status
