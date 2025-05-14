@@ -85,3 +85,44 @@ ALTER COLUMN asset_type SET NOT NULL;
 
 ALTER TABLE transactions
 DROP COLUMN asset_type_old;
+
+-- Repeat the same steps for `market_data` table
+ALTER TABLE market_data
+RENAME COLUMN asset_type TO asset_type_old;
+
+ALTER TABLE market_data
+ADD COLUMN asset_type VARCHAR(255);
+
+UPDATE market_data
+SET asset_type = asset_type_old::TEXT;
+
+UPDATE market_data
+SET asset_type = 'UNKNOWN'
+WHERE asset_type IS NULL;
+
+ALTER TABLE market_data
+ALTER COLUMN asset_type SET NOT NULL;
+
+ALTER TABLE market_data
+DROP COLUMN asset_type_old;
+
+-- Repeat the same steps for `market_data_monthly` table
+ALTER TABLE market_data_monthly
+RENAME COLUMN asset_type TO asset_type_old;
+
+ALTER TABLE market_data_monthly
+ADD COLUMN asset_type VARCHAR(255);
+
+UPDATE market_data_monthly
+SET asset_type = asset_type_old::TEXT;
+
+UPDATE market_data_monthly
+SET asset_type = 'UNKNOWN'
+WHERE asset_type IS NULL;
+
+ALTER TABLE market_data_monthly
+ALTER COLUMN asset_type SET NOT NULL;
+
+ALTER TABLE market_data_monthly
+DROP COLUMN asset_type_old;
+
