@@ -1,5 +1,5 @@
 -- Drop the forex table if it exists
-DROP TABLE IF EXISTS forex;
+DROP TABLE IF EXISTS forex_data;
 
 -- Create watchlist data table
 CREATE TABLE watchlist_data (
