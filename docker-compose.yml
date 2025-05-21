@@ -6,15 +6,15 @@ services:
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_DB: ${DATABASE_NAME}
     ports:
-      - "5433:5432"
+      - "${DATABASE_HOST_PORT}:${DATABASE_INTERNAL_PORT}"
     networks:
-      - ${NETWORK_NAME}
+      - ${DATABASE_NETWORK_NAME}
     volumes:
       - db_data:/var/lib/postgresql/data
 networks:
-  fintrack-network:
+  ${DATABASE_NETWORK_NAME}:
     external: true
 
 volumes:
