@@ -1,6 +1,6 @@
 CREATE TABLE categories (
     category_id SERIAL PRIMARY KEY, -- Unique identifier for the category
-    account_id UUID NOT NULL REFERENCES users(account_id) ON DELETE CASCADE, -- Links category to a user
+    account_id UUID NOT NULL REFERENCES accounts(account_id) ON DELETE CASCADE, -- Links category to a user
     parent_id INT REFERENCES categories(category_id) ON DELETE CASCADE, -- Parent category (NULL for top-level categories)
     category_name VARCHAR(255) NOT NULL, -- Name of the category
     level INT NOT NULL, -- Level in the hierarchy (e.g., 1 for top-level, 2 for subcategories)
