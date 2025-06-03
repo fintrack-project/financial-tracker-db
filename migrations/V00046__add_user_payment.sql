@@ -1,6 +1,6 @@
 CREATE TABLE payment_methods (
     id SERIAL PRIMARY KEY,
-    account_id UUID NOT NULL REFERENCES users(account_id) ON DELETE CASCADE, -- Foreign key to users table
+    account_id UUID NOT NULL REFERENCES accounts(account_id) ON DELETE CASCADE, -- Foreign key to accounts table
     stripe_payment_method_id VARCHAR(255) NOT NULL, -- Stripe's payment method ID
     type VARCHAR(255) NOT NULL, -- Type of payment method (e.g., "card", "bank_transfer")
     card_last4 VARCHAR(4), -- Last 4 digits of the card
@@ -15,7 +15,7 @@ CREATE TABLE payment_methods (
 
 CREATE TABLE payment_intents (
     id SERIAL PRIMARY KEY,
-    account_id UUID NOT NULL REFERENCES users(account_id) ON DELETE CASCADE, -- Foreign key to users table
+    account_id UUID NOT NULL REFERENCES accounts(account_id) ON DELETE CASCADE, -- Foreign key to accounts table
     stripe_payment_intent_id VARCHAR(255) NOT NULL, -- Stripe's payment intent ID
     amount BIGINT NOT NULL, -- Amount in cents
     currency VARCHAR(10) NOT NULL, -- e.g., "usd"
