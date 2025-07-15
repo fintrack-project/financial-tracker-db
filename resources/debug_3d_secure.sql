@@ -8,7 +8,7 @@ SELECT
     us.stripe_subscription_id,
     us.plan_id,
     us.status as subscription_status,
-    us.active as subscription_active,
+    us.is_active as subscription_active,
     us.created_at,
     us.last_payment_date,
     us.next_billing_date
@@ -39,11 +39,11 @@ SELECT
     us.stripe_subscription_id,
     us.plan_id,
     us.status as subscription_status,
-    us.active as subscription_active,
+    us.is_active as subscription_active,
     us.created_at,
     us.last_payment_date
 FROM user_subscriptions us
-WHERE us.status = 'incomplete' AND us.active = true
+WHERE us.status = 'incomplete' AND us.is_active = true
 ORDER BY us.created_at DESC;
 
 -- 4. Find payment intents that are incomplete but have active subscriptions
@@ -55,11 +55,11 @@ SELECT
     pi.metadata,
     us.stripe_subscription_id,
     us.status as subscription_status,
-    us.active as subscription_active
+    us.is_active as subscription_active
 FROM payment_intents pi
 JOIN user_subscriptions us ON pi.account_id = us.account_id
 WHERE pi.status IN ('requires_action', 'processing', 'incomplete')
-    AND us.active = true
+    AND us.is_active = true
 ORDER BY pi.created_at DESC;
 
 -- 5. Check for any payment intents with 3D Secure metadata
@@ -82,7 +82,7 @@ SELECT
     us.stripe_subscription_id,
     us.plan_id,
     us.status as subscription_status,
-    us.active as subscription_active,
+    us.is_active as subscription_active,
     us.created_at,
     us.last_payment_date
 FROM user_subscriptions us
