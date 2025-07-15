@@ -23,7 +23,6 @@ BEGIN
     -- Step 3: Update user subscription to free plan
     UPDATE financial_tracker.user_subscriptions 
     SET 
-        plan_id = free_plan_id,
         stripe_subscription_id = 'free_' || target_account_id::TEXT,
         status = 'active',
         is_active = true,
@@ -37,7 +36,6 @@ BEGIN
     IF NOT FOUND THEN
         INSERT INTO financial_tracker.user_subscriptions (
             account_id,
-            plan_id,
             stripe_subscription_id,
             status,
             is_active,
@@ -48,7 +46,6 @@ BEGIN
             created_at
         ) VALUES (
             target_account_id,
-            free_plan_id,
             'free_' || target_account_id::TEXT,
             'active',
             true,
@@ -69,7 +66,6 @@ END $$;
 -- Verify the reset
 SELECT 
     us.account_id,
-    us.plan_id,
     us.stripe_subscription_id,
     us.status,
     us.is_active,
@@ -81,4 +77,4 @@ FROM financial_tracker.user_subscriptions us
 LEFT JOIN financial_tracker.payment_intents pi ON us.account_id = pi.account_id
 LEFT JOIN financial_tracker.payment_methods pm ON us.account_id = pm.account_id
 WHERE us.account_id = 'YOUR_ACCOUNT_ID_HERE'::UUID
-GROUP BY us.account_id, us.plan_id, us.stripe_subscription_id, us.status, us.is_active, us.subscription_start_date, us.next_billing_date; 
+GROUP BY us.account_id, us.stripe_subscription_id, us.status, us.is_active, us.subscription_start_date, us.next_billing_date; 
