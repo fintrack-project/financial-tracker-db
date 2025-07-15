@@ -5,7 +5,7 @@
 -- Set the account ID to reset (replace with actual UUID)
 DO $$
 DECLARE
-    target_account_id UUID := 'bcbf7c33-e1a5-4feb-942a-6eda9f746990'::UUID;
+    target_account_id UUID := 'YOUR_ACCOUNT_ID_HERE'::UUID;
     free_plan_id VARCHAR(50) := 'plan_free';
 BEGIN
     RAISE NOTICE 'Resetting account % to free plan...', target_account_id;
@@ -27,8 +27,6 @@ BEGIN
         stripe_subscription_id = 'free_' || target_account_id::TEXT,
         status = 'active',
         is_active = true,
-        cancel_at_period_end = false,
-        pending_plan_change = false,
         subscription_start_date = NOW(),
         subscription_end_date = NULL,
         next_billing_date = NULL,
@@ -41,11 +39,8 @@ BEGIN
             account_id,
             plan_id,
             stripe_subscription_id,
-            stripe_customer_id,
             status,
             is_active,
-            cancel_at_period_end,
-            pending_plan_change,
             subscription_start_date,
             subscription_end_date,
             next_billing_date,
@@ -55,11 +50,8 @@ BEGIN
             target_account_id,
             free_plan_id,
             'free_' || target_account_id::TEXT,
-            NULL, -- No Stripe customer for free plan
             'active',
             true,
-            false,
-            false,
             NOW(),
             NULL,
             NULL,
@@ -81,7 +73,6 @@ SELECT
     us.stripe_subscription_id,
     us.status,
     us.is_active,
-    us.pending_plan_change,
     us.subscription_start_date,
     us.next_billing_date,
     COUNT(pi.id) as payment_intent_count,
@@ -89,5 +80,5 @@ SELECT
 FROM financial_tracker.user_subscriptions us
 LEFT JOIN financial_tracker.payment_intents pi ON us.account_id = pi.account_id
 LEFT JOIN financial_tracker.payment_methods pm ON us.account_id = pm.account_id
-WHERE us.account_id = 'bcbf7c33-e1a5-4feb-942a-6eda9f746990'::UUID
-GROUP BY us.account_id, us.plan_id, us.stripe_subscription_id, us.status, us.is_active, us.pending_plan_change, us.subscription_start_date, us.next_billing_date; 
+WHERE us.account_id = 'YOUR_ACCOUNT_ID_HERE'::UUID
+GROUP BY us.account_id, us.plan_id, us.stripe_subscription_id, us.status, us.is_active, us.subscription_start_date, us.next_billing_date; 
