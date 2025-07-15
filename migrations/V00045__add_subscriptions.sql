@@ -7,6 +7,6 @@ CREATE TABLE user_subscriptions (
     is_active BOOLEAN DEFAULT false,
     last_payment_date TIMESTAMP,
     next_billing_date TIMESTAMP,
-    status VARCHAR(50), -- Subscription status (e.g., "active", "canceled")
+    status VARCHAR(50), -- Stripe standard statuses: "active", "canceled", "incomplete", "incomplete_expired", "past_due", "trialing", "unpaid", "paused"
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
