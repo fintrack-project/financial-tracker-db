@@ -5,7 +5,7 @@
 -- Set the account ID to reset (replace with actual UUID)
 DO $$
 DECLARE
-    target_account_id UUID := 'YOUR_ACCOUNT_ID_HERE'::UUID;
+    target_account_id UUID := 'bcbf7c33-e1a5-4feb-942a-6eda9f746990'::UUID;
     free_plan_id VARCHAR(50) := 'plan_free';
 BEGIN
     RAISE NOTICE 'Resetting account % to free plan...', target_account_id;
@@ -89,5 +89,5 @@ SELECT
 FROM financial_tracker.user_subscriptions us
 LEFT JOIN financial_tracker.payment_intents pi ON us.account_id = pi.account_id
 LEFT JOIN financial_tracker.payment_methods pm ON us.account_id = pm.account_id
-WHERE us.account_id = 'YOUR_ACCOUNT_ID_HERE'::UUID
+WHERE us.account_id = 'bcbf7c33-e1a5-4feb-942a-6eda9f746990'::UUID
 GROUP BY us.account_id, us.plan_id, us.stripe_subscription_id, us.status, us.is_active, us.pending_plan_change, us.subscription_start_date, us.next_billing_date; 
