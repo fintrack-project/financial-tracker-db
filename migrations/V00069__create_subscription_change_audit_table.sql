@@ -8,8 +8,8 @@ CREATE TABLE subscription_change_audit (
     change_type VARCHAR(50) NOT NULL, -- 'upgrade', 'downgrade', 'cancellation', 'reactivation'
     from_plan_id VARCHAR(255),
     to_plan_id VARCHAR(255),
-    proration_amount DECIMAL(10,2),
     policy_version VARCHAR(20),
+    proration_amount DECIMAL(10,2) DEFAULT 0.00, -- Proration amount for subscription changes
     change_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     ip_address VARCHAR(45),
     user_agent TEXT,
