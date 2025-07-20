@@ -25,11 +25,12 @@ BEGIN
     SET 
         plan_id = free_plan_id,
         stripe_subscription_id = 'free_' || target_account_id::TEXT,
+        stripe_customer_id = target_account_id::TEXT, -- Set customer ID to account ID
         status = 'active',
         is_active = true,
         subscription_start_date = NOW(),
         subscription_end_date = NULL,
-        next_billing_date = NULL,
+        next_billing_date = NOW() + INTERVAL '100 years', -- Free plans don't expire
         last_payment_date = NOW()
     WHERE account_id = target_account_id;
     
@@ -39,6 +40,7 @@ BEGIN
             account_id,
             plan_id,
             stripe_subscription_id,
+            stripe_customer_id,
             status,
             is_active,
             subscription_start_date,
@@ -50,11 +52,12 @@ BEGIN
             target_account_id,
             free_plan_id,
             'free_' || target_account_id::TEXT,
+            target_account_id::TEXT, -- Set customer ID to account ID
             'active',
             true,
             NOW(),
             NULL,
-            NULL,
+            NOW() + INTERVAL '100 years', -- Free plans don't expire
             NOW(),
             NOW()
         );
