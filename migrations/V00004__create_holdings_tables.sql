@@ -7,7 +7,7 @@ CREATE TABLE holdings (
     total_balance NUMERIC(15, 2) NOT NULL, -- Total balance of the asset
     unit VARCHAR(50) NOT NULL, -- Unit of the asset (e.g., USD, BTC, etc.)
     -- Comment: This table tracks the most recent holdings of the user. 
-    -- Updates are triggered by confirmed transactions from the console.
+    -- Updates are triggered synchronously when transactions are confirmed in the backend.
     UNIQUE (account_id, asset_name) -- Ensure one record per account and asset
 );
 
@@ -20,7 +20,7 @@ CREATE TABLE holdings_history (
     total_balance NUMERIC(15, 2) NOT NULL, -- Total balance of the asset
     unit VARCHAR(50) NOT NULL, -- Unit of the asset (e.g., USD, BTC, etc.)
     -- Comment: This table tracks historical holdings of the user.
-    -- ETL processes should calculate this quarterly.
+    -- Holdings are calculated synchronously by the backend when transactions are confirmed.
     -- If a confirmed transaction includes a past date, this table should be updated by recalculating the values.
     UNIQUE (account_id, asset_name, date) -- Ensure one record per account, asset, and date
 );
